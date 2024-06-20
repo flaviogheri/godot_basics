@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxekrhi8a0pls"]
+[gd_scene load_steps=11 format=3 uid="uid://cxekrhi8a0pls"]
 
 [ext_resource type="PackedScene" uid="uid://daw62xqyjkyu" path="res://scenes/player.tscn" id="1_2og28"]
 [ext_resource type="Texture2D" uid="uid://cvxo87iowlouv" path="res://assets/sprites/world_tileset.png" id="2_1nc4o"]
+[ext_resource type="PackedScene" uid="uid://dhvm3bh82tmmr" path="res://scenes/platform.tscn" id="3_cbajm"]
+[ext_resource type="PackedScene" uid="uid://2jq15yihhdy8" path="res://scenes/coin.tscn" id="4_jr4k2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d5hpi"]
 
@@ -419,6 +421,44 @@ texture = ExtResource("2_1nc4o")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_0mog6")
 
+[sub_resource type="Animation" id="Animation_ns158"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-48, -49)]
+}
+
+[sub_resource type="Animation" id="Animation_136sh"]
+resource_name = "move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-75, -44), Vector2(-77, -110), Vector2(-18, -109)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_284eh"]
+_data = {
+"RESET": SubResource("Animation_ns158"),
+"move": SubResource("Animation_136sh")
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_2og28")]
@@ -439,3 +479,33 @@ position = Vector2(-2, 0)
 tile_set = SubResource("TileSet_xv1dv")
 format = 2
 layer_0/tile_data = PackedInt32Array(131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -393214, 0, 0, -393213, 0, 0, -393215, 0, 0, -393216, 0, 0, -327681, 0, 0, -196610, 0, 0, -196611, 0, 0, -5, 0, 0, 65532, 0, 0, -131061, 196608, 7, -131055, 131072, 4, 11, 196608, 7, 17, 196608, 7, 22, 196608, 7, -65514, 196608, 7, -131050, 196608, 7, -196586, 196608, 7, -262122, 196608, 7, -327658, 196608, 7, -458730, 131072, 4, 65547, 262144, 0, 65548, 262144, 0, 65549, 262144, 0, 65550, 262144, 0, 65551, 262144, 0, 65552, 262144, 0, 65553, 262144, 0, 65554, 262144, 0, 65555, 262144, 0, 65556, 262144, 0, 65557, 262144, 0, 65558, 262144, 0, 65559, 262144, 0, 14, 65536, 6, 23, 65536, 6, -131068, 65536, 6, 2, 65536, 6, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, -393212, 589824, 0, -393211, 655360, 0, -393210, 655360, 0, -393209, 655360, 0, -393208, 655360, 0, -393207, 655360, 0, -393206, 720896, 0, -327669, 196608, 7, -262133, 131072, 8, -196597, 131072, 8, -65525, 131072, 8, -393205, 131072, 8, -458741, 131072, 8, -524277, 131072, 8, -589813, 131072, 4)
+
+[node name="platform" parent="." instance=ExtResource("3_cbajm")]
+position = Vector2(-48, -49)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platform"]
+libraries = {
+"": SubResource("AnimationLibrary_284eh")
+}
+autoplay = "move"
+
+[node name="platform2" parent="." instance=ExtResource("3_cbajm")]
+position = Vector2(16, -109)
+
+[node name="coin" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-17, -24)
+
+[node name="coin2" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-31, -14)
+
+[node name="coin3" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-18, 6)
+
+[node name="coin4" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-18, -9)
+
+[node name="coin5" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-31, 0)
+
+[node name="coin6" parent="." instance=ExtResource("4_jr4k2")]
+position = Vector2(-30, -29)
